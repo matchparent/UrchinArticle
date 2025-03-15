@@ -1,0 +1,298 @@
+{% extends './common.html' %}
+{% block cont %}
+<link rel="stylesheet" href="/css/artContent.css">
+<link rel="stylesheet" href="/css/home.css">
+<script src="/script/article.js" defer></script>
+<script src="/script/home.js" defer></script>
+
+<script type="text/javascript" src="/plugins/ueditor-plus/dist/ueditor.config.js"></script>
+<script type="text/javascript" src="/plugins/ueditor-plus/dist/ueditor.all.js"></script>
+<script type="text/javascript" src="/plugins/ueditor-plus/dist/lang/en/en.js"></script>
+
+<script>
+    const aid = "{{art.aid}}"
+    const auid = "{{art.uid}}"
+    let liked = "{{like_status}}" == "True"
+    let focused = "{{focus_status}}" == "True"
+    let uid = ""
+</script>
+
+{% if session.usr %}
+<script>
+    uid = "{{session.usr.uid}}"
+</script>
+{% endif %}
+
+<div class="ac_div_main">
+    <div class="ac_div_content clearfix">
+        <div class="ac_div_l fl">
+            <div class="ac_div_path">Home <i class="iconfont">&#xe7eb;</i> Article <i class="iconfont">&#xe7eb;</i>
+                {{art.title}}
+            </div>
+            <div class="ac_div_article ac_div_block">
+
+                <!-- 1.premier, 2.original, 3.other -->
+                {% if art.ayid == 1 %}
+                <img src="https://www.imooc.com/static/img/article/original.png?t=2">
+                {% elif art.ayid == 2 %}
+                <img src="https://www.imooc.com/static/img/article/original.png?t=2" style="object-position: top;">
+                {% endif %}
+
+                <span>{{art.title}}</span>
+
+                <div class="ac_d_taf">
+                    <span>tag:</span>
+                    {% set tag_list = art.tags.split(',') %}
+
+                    {% for item in tag_list %}
+                    <a href="" class="ac_article_tags">{{item}}</a>
+                    {% endfor %}
+                    <a href="" class="ac_article_favorite fr">Favorite</a>
+                </div>
+
+                <div class="ac_art_html">
+
+                    <div id="ac_art_safecontent">
+                        {{ art.content | safe }}
+                    </div>
+
+                    <div class="ac_div_click_more">
+
+                    </div>
+                </div>
+
+                <span id="ac_click_more">Click to show more</span>
+
+                <div class="ac_d_support">
+                    <div>
+                        {% for item in tag_list %}
+                        <a href="" class="ac_artag2">{{item}}</a>
+                        {% endfor %}
+                    </div>
+
+                    <span>Present and follow, pleaase</span>
+
+                    <p>Appreciate and Reward</p>
+                </div>
+
+                <div class="ac_d_artom">
+                    <a href="" class="ac_a_gather fr">Gather and Watch</a>
+
+                    <p>
+                        {{author.nickname}}
+                    </p>
+                    <p>
+                        {{author.intro}}
+                    </p>
+                </div>
+            </div>
+
+            <div class="ac_div_path">7 remarks</div>
+
+            <div class="ac_div_remarks ac_div_block">
+                <div class="ac_d_rewr">
+                    <span>Remark</span>
+                    <span>Write your remark for cooperative learning</span>
+                </div>
+
+                <!--
+                rid:评论编号id
+                rbid:评论归属ID.一级评论为空，二级评论为一级评论rid
+                rtuid:二级评论回复用户id。一级评论为空。
+                -->
+
+                {% for item in comments %}
+
+                <div class="ac_d_ritms">
+                    <a href="">
+                        <img src="{{ url_for('usr.get_avatar', tuid=item.uid) }}">
+                        <p>Rsp #{{loop.index}}</p>
+                    </a>
+
+                    <div class="ac_d_ritm_r">
+                        <a href="">{{item.nickname}}</a>
+
+                        <p>{{item.content | safe}}</p>
+
+                        <div class="ac_d_ritm_b">
+                            <p><i>&#xe83c;</i>123</p>
+                            <span data-rbid="{{item.rid}}" data-rtuid="{{item.uid}}" data-rtuname="{{item.nickname}}">Reply</span>
+                            <span>Report</span>
+                            <span>{{item.date}}</span>
+                        </div>
+
+
+                        {% if item.replies %}
+                        <script>
+                            console.log("{{item.replies}}")
+                        </script>
+                        {% for rir in item.replies %}
+
+                        <div class="ac_d_rir">
+                            <img src="{{ url_for('usr.get_avatar', tuid=rir.uid) }}">
+
+                            <div class="ac_d_ritm_r">
+                                <a href="">{{rir.nickname}}</a><span> reply to </span><a href="">{{rir.rtname}}</a>
+
+                                <p>{{rir.content}}</p>
+
+                                <div class="ac_d_ritm_b">
+                                    <span data-rbid="{{item.rid}}" data-rtuid="{{rir.uid}}" data-rtuname="{{rir.nickname}}">Reply</span>
+                                    <span>Report</span>
+                                    <span>{{rir.date}}</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        {% endfor %}
+                        {% endif %}
+
+                        <div class="ac_d_wrrp g" data-rbid="{{item.rid}}">
+                            <img src="{{ url_for('usr.get_avatar') }}">
+
+                            <textarea placeholder=""></textarea>
+
+                            <div class="fr">
+                                <div>Cancel</div>
+                                <div>Submit</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {% endfor %}
+
+            </div>
+
+            {% if 0 != (other | length) %}
+
+            <div class="ac_div_line">
+                <p class="ac_line"></p>
+                <p class="ac_line_up">More articles from this author</p>
+            </div>
+
+
+            <div class="ac_div_block ac_div_more_articles">
+                {% for item in other %}
+                <div class="h_div_list_item" href="/content/{{item.aid}}">
+                    <img src={{ item.cover | replace('"','') }}>
+
+                    <div>
+                        <a href="/content/{{item.aid}}" class="h_a_main_title">{{item.title}}</a>
+
+                        <span class="h_span_star">Star</span>
+
+                        <div class="h_div_item_bot">
+                            <span class="iconfont h_txt_main_list_bot">&#xe602;</span>
+                            <span class="h_txt_main_list_bot">{{item.num_view}}</span>
+
+                            <a href="" class="h_txt_main_list_bot">{{ item.tags | replace(",", "﹒") }}</a>
+
+                            <div class="h_txt_main_list_bot fr">
+                                {{item.date}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+
+            {% endif %}
+        </div>
+
+        <div class="ac_div_r fr">
+            <div class="ac_div_block">
+                <img src="{{ url_for('usr.get_avatar', tuid=art.uid) }}" class="ac_img_author">
+
+                <div class="ac_dr_nat">
+                    <a href="">{{author.nickname}}</a>
+                    <span>{{author.job}}<i>&#xe60f;</i><i>&#xe6f0;</i></span>
+                </div>
+
+                <div class="ac_d_atrnums">
+                    <table>
+                        <tr>
+                            <td>Article</td>
+                            <td>Focused</td>
+                            <td>Like&Favorite</td>
+                        </tr>
+
+                        <tr>
+                            <td><a href="">{{author.num_art}}</a></td>
+                            <td>{{author.num_focus}}</td>
+                            <td>{{author.num_laf}}</td>
+                        </tr>
+                    </table>
+
+                    {% if 'usr' not in session or art.uid!=session.usr.uid %}
+                    <a href="" id="ac_a_subscribe">Focus and Subscribe</a>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="ac_d_free ac_div_block">
+                <p>More Free Courses</p>
+                <a href="" class="ac_free_items">
+                    <img src="/pic/art-img1.jpg">
+
+                    <div class="ib">
+                        <p>Tenacious Illness</p>
+                        <span>13 sections ﹒ <i>&#xe7ae;</i>345 ﹒ <i>&#xe7df;</i>678</span>
+                    </div>
+                </a>
+                <a href="" class="ac_free_items">
+                    <img src="/pic/art-img1.jpg">
+
+                    <div class="ib">
+                        <p>Tenacious Illness</p>
+                        <span>13 sections ﹒ <i>&#xe7ae;</i>345 ﹒ <i>&#xe7df;</i>678</span>
+                    </div>
+                </a>
+                <a href="" class="ac_free_items">
+                    <img src="/pic/art-img1.jpg">
+
+                    <div class="ib">
+                        <p>Tenacious Illness</p>
+                        <span>13 sections ﹒ <i>&#xe7ae;</i>345 ﹒ <i>&#xe7df;</i>678</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <div class="ac_div_options_l">
+            <i>&#xe83c;</i>
+            <span>{{art.num_like}}</span>
+            <i>&#xe82e;</i>
+            <span>3</span>
+            <i>&#xe839;</i>
+            <span>{{art.num_fav}}</span>
+
+            <b></b>
+            <p>Share</p>
+            <i>&#xe632;</i>
+            <i>&#xe88f;</i>
+            <i>&#xe632;</i>
+        </div>
+    </div>
+</div>
+
+<div class="ac_modal_remark modal fade" id="remarkWriting" tabindex="-1" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" style="--bs-modal-width:700px">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel" style="font-weight: 700;">Write a remark
+                </h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <script id="editor" type="text/plain" style="height:150px;">Whatever that is in your mind ...
+                    </script>
+                <button id="ac_reply_publish" class="fr">
+                    Submit
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

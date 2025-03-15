@@ -1,0 +1,290 @@
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>{{title}}</title>
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='pic/art-img1.jpg') }}">
+
+    <style>
+        body {
+            background-color: white;
+        }
+    </style>
+
+    <link rel="stylesheet" href="/css/base.css">
+    <link rel="stylesheet" href="/css/common.css">
+    <link id="theme-css" rel="stylesheet">
+
+
+
+    <script src="/script/common.js" defer></script>
+</head>
+
+<body>
+    {% include '/utils/bootStrap.html' %}
+
+    <div class="co_popwin_discovery">
+        <a href="https://www.google.com" target="_blank">Google</a>
+        <a href="https://www.youtube.com" target="_blank">Youtube</a>
+    </div>
+
+    <div class="co_div_top_ad">
+        <button type="button" class="btn-close"/>
+    </div>
+
+    <div class="co_div_nav">
+
+        <div>
+            <ul>
+                <li class="ib"><a href="/">Home</a></li>
+                <li class="ib"><a href="https://www.imooc.com/article/recom">Imitating Target</a></li>
+                <li class="ib"><a id="shift" href="" target="_blank">Style Shift</a></li>
+                <li class="ib"><a href="">Discovery<i class="co_i_discovery iconfont">&#xe605;</i></a></li>
+            </ul>
+
+            <div class="co_div_nav_right fr">
+                <div>
+                    <input type="text" id="search" placeholder="please input keywords...">
+
+                    <a href="" class="co_a_nav_search fr">
+                        <i class="iconfont"
+                            style="color: white;font-size: 12px;text-align: center;margin-right: 3px;">&#xe606;</i>Search
+                    </a>
+                </div>
+
+                <a href="" class="iconfont co_a_nav_icon">&#xe600;</a>
+
+                {% if session.isLogin %}
+                <script>
+                </script>
+                <div id="co_d_navr_t">
+                    <a href="/accountInfo" class="co_a_lnr">{{session.usr.nickname}}</a>
+                    <img src="{{ url_for('usr.get_avatar') }}" class="avatar"
+                        onerror="this.onerror=null; this.src='pic/defpor.jpeg';">
+                </div>
+
+                {% else %}
+                <div id="co_d_navr_f">
+                    <a href="" class="co_a_lnr" data-bs-toggle="modal" data-bs-target="#loginModal">Login</a> /
+                    <a href="" class="co_a_lnr" data-bs-toggle="modal" data-bs-target="#registerModal">Register</a>
+                </div>
+                {% endif %}
+
+
+            </div>
+        </div>
+
+    </div>
+
+    <div class="co_div_hometop">
+
+        <div>
+            <div class="co_div_banner_l fl">
+                <img src="https://www.imooc.com/static/img/article/article-logo.png?v=1">
+                <span>
+                    Urchin Article
+                </span>
+                <span>
+                    Share & Interact as you wish
+                </span>
+            </div>
+
+            <a href="/new">Write Article</a>
+
+            <div class="co_div_hometop_r fr">
+
+                <input type="text" placeholder="Search for interesting things">
+
+                <div>
+                    <i class="iconfont">&#xe606;</i>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+    <div class="co_div_r4">
+        <div class="co_div_r4_icon">
+            <a class="iconfont" data-icon="&#xe60e;" data-txt="Feed back" href="https://www.google.com">
+                &#xe60e;
+            </a>
+        </div>
+        <div class="co_div_r4_icon">
+            <a class="iconfont" data-icon="&#xe6fa;" data-txt="Help Center" href="https://www.google.com">
+                &#xe6fa;
+            </a>
+        </div>
+        <div class="co_div_r4_icon">
+            <a class="iconfont" data-icon="&#xe655;" data-txt="App Download" href="https://www.google.com">
+                &#xe655;
+            </a>
+        </div>
+        <div class="co_div_r4_icon">
+            <a class="iconfont" data-icon="&#xe739;" data-txt="Whats app" href="https://www.google.com">
+                &#xe739;
+            </a>
+        </div>
+    </div>
+
+    {% block cont %}
+    {% endblock %}
+
+    <div class="co_div_footer">
+        <div>
+            <div class="co_div_footer_r fr">
+                <a href="" class="co_a_icon_bot iconfont">
+                    <span>&#xe632;</span>
+                </a>
+
+                <a href="" class="co_a_icon_bot iconfont">
+                    <span>&#xe88f;</span>
+                </a>
+
+                <a href="" class="co_a_icon_bot iconfont">
+                    <span>&#xe632;</span>
+                </a>
+
+                <a href="" class="co_a_icon_bot iconfont">
+                    <span>&#xe88f;</span>
+                </a>
+            </div>
+
+            <div>
+                <div class="co_div_footer_l">
+                    <ul>
+                        <li class="co_li_bot ib">
+                            <a href="">services</a>
+                        </li>
+                        <li class="co_li_bot ib">
+                            <a href="">map</a>
+                        </li>
+                        <li class="co_li_bot ib">
+                            <a href="">homepage</a>
+                        </li>
+                        <li class="co_li_bot ib"><a href="">about us</a></li>
+                        <li class="co_li_bot ib"><a href="">feedback</a></li>
+                    </ul>
+                </div>
+
+                <p class="co_p_copyright">Copyright © 2025 Urchin.com All Rights Reserved| Record No. ISO90018765</p>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" style="width: 450px;--bs-modal-margin: max(calc((100vh - 400px) / 2), 10px);">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel"
+                        style="color: red;margin-left: 50%;transform: translate(-50%,0);font-weight: 700;">Login</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form style="width: 400px;margin: 0 auto;">
+                        <div class="mb-3">
+                            <input type="text" class="form-control" id="input-login-mail" placeholder="input email"
+                                autocomplete="off" value="qwer@qw.er">
+                        </div>
+                        <div class="mb-3">
+                            <input type="password" class="form-control" id="input-login-pass" autocomplete="off"
+                                placeholder="input password" value="qwer1234">
+                        </div>
+
+                        <div class="mb-3 clearfix">
+                            <img src="https://static.mukewang.com/static/img/article/header1.png"
+                                style="float: left;height: 40px;width: 80px;">
+                            <input type="password" class="form-control" id="input-login-veri" autocomplete="off"
+                                value="1234" placeholder="input verify code"
+                                style="width: 300px;margin-left: 20px;float: left;">
+                        </div>
+
+                        <div class="g">
+                            <div class="alert d-flex align-items-center" role="alert" id="co_login_boolert"
+                                style="--bs-alert-margin-bottom : 0;--bs-alert-margin-top:1rem">
+                                <svg class="bi flex-shrink-0 me-2" role="img" aria-label="Danger:">
+                                    <use xlink:href="#exclamation-triangle-fill"></use>
+                                </svg>
+                                <div></div>
+                            </div>
+                        </div>
+                        <button type="button" class="co_b_reg_login">
+                            Login
+                        </button>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#registerModal"
+                        style="margin: 10px auto;background-color: transparent;border: none; font-size: 13px;color: #545c63;">
+                        Register
+                    </button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" style="width: 450px;--bs-modal-margin: max(calc((100vh - 400px) / 2), 10px);">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel"
+                        style="color: red;margin-left: 50%;transform: translate(-50%,0);font-weight: 700;">Register</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="register" method="post" style="width: 400px;margin: 0 auto;">
+                        <div class="mb-3">
+                            <input type="email" autocomplete="off" class="form-control" name="email" id="input-reg-mail"
+                                placeholder="input email">
+                        </div>
+                        <div class="mb-3">
+                            <input type="password" class="form-control" name="pass" id="input-reg-pass"
+                                autocomplete="off" placeholder="input password">
+                        </div>
+                        <div class="mb-3">
+                            <input type="password" class="form-control" name="repass" id="input-reg-psag"
+                                autocomplete="off" placeholder="input password again">
+                        </div>
+
+                        <div class="mb-3 clearfix">
+                            <input type="text" class="form-control" id="input-reg-veri" name="veri" maxlength="6"
+                                autocomplete="off" placeholder="input verify code" style="width: 300px; float: left;">
+                            <button class="co_b_reg_send">
+                                Send
+                            </button>
+                        </div>
+
+                        <!-- fail: alert-danger, success: alert-success -->
+                        <div class="g">
+                            <div class="alert d-flex align-items-center" role="alert" id="co_reg_boolert"
+                                style="--bs-alert-margin-bottom : 0;--bs-alert-margin-top:1rem">
+                                <svg class="bi flex-shrink-0 me-2" role="img" aria-label="Danger:">
+                                    <use xlink:href="#exclamation-triangle-fill"></use>
+                                </svg>
+                                <div></div>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="co_b_reg_submit">
+                            Register
+                            Now
+                        </button>
+                    </form>
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#loginModal"
+                        style="margin: 10px auto;background-color: transparent;border: none; font-size: 13px;color: #545c63;">
+                        Login
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>

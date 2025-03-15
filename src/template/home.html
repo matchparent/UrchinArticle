@@ -1,0 +1,108 @@
+{% extends './common.html' %}
+{% block cont %}
+<link rel="stylesheet" href="/css/home.css">
+<script src="/script/home.js" defer></script>
+
+<div class="h_div_home_content">
+
+    <div>
+        <div>
+            <ul class="h_home_cl">
+                {% for item in artcats %}
+                <li class="h_li_left {% if (item.opt == opti) %}h_li_left_selected{% endif %} ">
+                    <a href="/{{item.opt}}" class="h_a_left">{{item.cat_name}}</a>
+                </li>
+                {% endfor %}
+            </ul>
+
+            <div class="h_home_cr">
+
+                {% if opti == "reco"%}
+
+                <div class="h_div_twin">
+
+                    {% for twin in reco_twins %}
+
+                    <a href="/{{twin.opt}}" class="h_a_twin">
+
+                        <div>
+                            <span>Column {{twin.nickname}}:</span>
+                            <span>discussing</span>
+                        </div>
+
+                        <p>{{twin.intro}}</p>
+
+                        <div class="fl">
+                            <img src="https://www.imooc.com/static/img/article/header1.png">
+                            <span>7.8K Users are watching</span>
+                        </div>
+
+                        <span class="iconfont fr">
+                            join the discussion <span>&#xe603;</span>
+                        </span>
+                    </a>
+
+                    {% endfor %}
+
+
+
+                </div>
+
+                {% endif %}
+
+                <div class="h_div_list_container">
+
+                    <script>
+                        console.log("author:{{author}}")
+                    </script>
+                    {% if author!=None %}
+                    <div id="h_d_art_col_header">
+                        <div>
+                            <span>Column:{{author.nickname}}</span>
+                            <span>Discussing</span>
+                        </div>
+                        <span>{{author.motto}}</span>
+                    </div>
+                    {% endif %}
+
+                    {% for item in articles %}
+                    <div class="h_div_list_item" href="/content/{{item.aid}}">
+
+                        <img src={{ item.cover | replace('"',"") }}>
+
+                        <div>
+                            <a class="h_a_main_title">{{item.title}}</a>
+
+                            <span class="h_span_star">Star</span>
+
+                            <div class="h_div_item_bot">
+                                {% if opti == "reco" %}
+                                <a href="" class="h_a_main_tag">{{item.cat_name}}</a>
+                                {% endif %}
+
+                                <span class="iconfont h_txt_main_list_bot">&#xe602;</span>
+                                <span class="h_txt_main_list_bot">{{item.num_view}}</span>
+
+                                <a href="" class="h_txt_main_list_bot">{{item.nickname}}</a>
+
+                                <a href="" class="h_txt_main_list_bot">{{ item.tags | replace(",", "﹒") }}</a>
+
+                                <div class="h_txt_main_list_bot fr">
+                                    {{item.date}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+
+
+                    <div class="h_txt_main_list_bot h_div_list_footer">
+                        nothing more, already the end.
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

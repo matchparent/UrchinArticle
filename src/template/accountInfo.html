@@ -1,0 +1,75 @@
+{% extends './common.html' %}
+{% block cont %}
+<link rel="stylesheet" href="/css/accountInfo.css">
+<script src="/script/accountInfo.js" defer></script>
+<script src="/script/public.js" defer></script>
+
+<!-- https://flatpickr.js.org, date selector -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
+<div id="ai_container">
+    <div id="ai_d_p">
+        <div id="ai_d_img">
+            <img src="{{ url_for('usr.get_avatar') }}" class="avatar" onerror="this.onerror=null; this.src='pic/defpor.jpeg';">
+            <p>Drag</p>
+            <input type="file" accept="image/*" class="g">
+        </div>
+
+        <p>{{session.usr.nickname}}</p>
+        <p>{{(session.usr.date_birth or "Birthday empty") | strftime()}}</p>
+
+        <div id="ai_p_bot">
+            <button id="ai_p_upd" data-bs-toggle="modal" data-bs-target="#updateModal">
+                Update Information
+            </button>
+            <button id="ai_p_logout">
+                Log out
+            </button>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="width: 450px;--bs-modal-margin: max(calc((100vh - 400px) / 2), 10px);">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel"
+                    style="color: red;margin-left: 50%;transform: translate(-50%,0);font-weight: 700;">Update Information</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form style="width: 400px;margin: 0 auto;">
+                    <div class="mb-3">
+                        <input type="text" autocomplete="off" class="form-control" name="email" id="input-udt-nick"
+                               value="{{session.usr.nickname}}"
+                               placeholder="Input nickname">
+                    </div>
+                    <div class="mb-3 clearfix">
+                        <input type="text" class="form-control" name="pass" id="input-udt-date" autocomplete="off"
+                               value="{{session.usr.date_birth or ''}}"
+                               placeholder="Select date">
+                    </div>
+
+                    <!-- fail: alert-danger, success: alert-success -->
+                    <div class="g">
+                        <div class="alert d-flex align-items-center" role="alert" id="ai_udt_boolert"
+                             style="--bs-alert-margin-bottom : 0;--bs-alert-margin-top:1rem">
+                            <svg class="bi flex-shrink-0 me-2" role="img" aria-label="Danger:">
+                                <use xlink:href="#exclamation-triangle-fill"></use>
+                            </svg>
+                            <div></div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <div class="modal-footer">
+                <button id="ai_b_udt_save">
+                    Save
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

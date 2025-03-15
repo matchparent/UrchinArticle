@@ -1,0 +1,126 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+body {
+	font: 14px / 1.5 "PingFang SC", "微软雅黑", "Microsoft YaHei", Helvetica, "Helvetica Neue", Tahoma, Arial, sans-serif;
+	color: #1c1f21;
+}
+
+@font-face {
+	font-family: 'iconfont';
+	src: url('https://at.alicdn.com/t/c/font_4819778_n3onmxqjz9.woff2?t=1741082743284') format('woff2');
+}
+
+em,
+i {
+	font-style: none;
+}
+
+ol,
+ul {
+	padding-left: 0px;
+}
+
+li {
+	list-style-type: none;
+}
+
+img {
+	border: 0;
+	vertical-align: middle;
+}
+
+a {
+	color: #545C63;
+	text-decoration: none !important;
+}
+
+input {
+	border: 0;
+	outline: none;
+	border: none;
+}
+
+button {
+	border: none;
+}
+
+html,
+body {
+	/* background-color: #f3f5f6; */
+	font-size: 16px;
+}
+
+
+.clearfix:after {
+	content: "";
+	display: block;
+	height: 0;
+	clear: both;
+	visibility: hidden;
+}
+
+.fl {
+	float: left !important;
+}
+
+.fr {
+	float: right !important;
+}
+
+.ib {
+	display: inline-block !important;
+}
+
+.b {
+	display: block !important;
+}
+
+.il {
+	display: inline !important;
+}
+
+.g,.g2 {
+	display: none !important;
+}
+
+.avatar {
+	object-fit: cover;
+}
+
+.fxcd {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+/* to set thumb color, this need to be configured */
+
+::-webkit-scrollbar {
+	width: 8px;
+}
+
+::-webkit-scrollbar-track {
+	background: white;
+	border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+	background: rgba(28, 31, 33, .1);
+	border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+	background: rgba(28, 31, 33, .1);
+}
+
+i,
+.iconfont {
+	font-family: "iconfont" !important;
+	font-style: normal;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}

@@ -1,0 +1,7 @@
+:root {
+    --fes-bgi: url('../pic/hometop.avif');
+    --fes-fc: white;
+    --fes-fhc: #f5cf9a;
+    --fes-sc: rgba(0, 0, 0, 0.40);
+    --fes-sbc: transparent;
+}
