@@ -1,10 +1,14 @@
+import logging
 import os
+import Utils.Logger
 
 from flask import Flask, render_template
 from HomeApi import homeBp
 from ArticleApi import articleBp
 from UserApi import usrBp
 from Filters import filBp
+from Utils.Env import config
+from src.flask.Utils.Logger import init_log
 
 app = Flask(__name__, template_folder="../template", static_url_path="/", static_folder="../resource")
 app.register_blueprint(homeBp)
@@ -20,6 +24,7 @@ app.config.update(
     SESSION_COOKIE_SAMESITE='Lax'  # 防止 CSRF 攻击
 )
 
+
 @app.errorhandler(404)
 def uni_404(error):
     return render_template("404.html")
@@ -31,4 +36,6 @@ def route_404():
 
 
 if __name__ == '__main__':
-    app.run(host="0.0.0.0", debug=True, port=3321)
+    init_log()
+    app.run(**config.flask_app)
+    # app.run(host="0.0.0.0", debug=True, port=3321)
