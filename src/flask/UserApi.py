@@ -4,9 +4,9 @@ import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 
-from flask import Blueprint, render_template, request, session, Response
+from flask import Blueprint, render_template, request, session, Response, make_response, url_for
 import re
-from Utils import Constants, Tools, PrivateConfigurations, DbUtil
+from Utils import Constants, Tools, PrivateConfigurations, DbUtil, ImageCode
 
 usrBp = Blueprint("usr", __name__)
 
@@ -97,8 +97,6 @@ def email_verify():
         return ErspUser[2]
     code = Tools.generate_verification_code()
 
-    session['test'] = "email"
-
     # content = render_template("vericode.html", vericode=code, email=email)
     #
     # msg = MIMEMultipart()
@@ -125,6 +123,8 @@ def login():
     email = request.form['email']
     password = request.form['pass']
     verify_code = request.form['veri']
+    print("verify_code:" + verify_code)
+    print("sescode:" + session['vcode'])
 
     if not email or not password or not verify_code:
         return ErspUser[1]
@@ -132,6 +132,8 @@ def login():
         return ErspUser[2]
     elif not re.match(Constants.Reg_Pass, password):
         return ErspUser[3]
+    elif verify_code != session['vcode']:
+        return ErspUser[4]
     else:
 
         def query(conn):
@@ -157,7 +159,9 @@ def account_info():
 @usrBp.route("/logout")
 def logout():
     session.clear()
-    return Tools.gen200rsp("Logout success.")
+    response = make_response("Log out", 302)
+    response.headers["Location"] = url_for("home.home")
+    return response
 
 
 @usrBp.route("/updateAccount", methods=["POST"])
@@ -259,3 +263,12 @@ def focus_author():
             return Constants.rsp_se
 
     return DbUtil.execute(query)
+
+
+@usrBp.route("/vcode")
+def vcode():
+    code, byte_string = ImageCode.byte_code()
+    rsp = make_response(byte_string)
+    rsp.headers["Content-Type"] = "image/jpeg"
+    session["vcode"] = code.lower()
+    return rsp

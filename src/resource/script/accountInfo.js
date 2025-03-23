@@ -1,8 +1,9 @@
 document.querySelector("#ai_p_logout").onclick = function (e) {
-    fetch('/logout')
-        .then(response => response.json())
-        .then(location.href = "/")
-        .catch(error => console.error('Error:', error));
+    // fetch('/logout')
+    //     .then(response => response.json())
+    //     .then(location.href = "/")
+    //     .catch(error => console.error('Error:', error));
+    location.href = "/logout"
 }
 
 flatpickr("#input-udt-date", { minDate: "2020-01-01", maxDate: "today" });

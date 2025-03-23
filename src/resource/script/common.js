@@ -1,3 +1,4 @@
+const urlParams = new URLSearchParams(window.location.search);
 const loginClick = document.querySelector("#co_d_navr_f>.co_a_lnr:first-of-type")
 const topAd = document.querySelector(".co_div_top_ad")
 
@@ -8,20 +9,20 @@ function loadTheme() {
     let isFes = localStorage.getItem("fesTheme") === "true";
     let themeFile = isFes ? theme_fes : theme_norm;
     document.getElementById("theme-css").href = themeFile;
-    if(isFes){
+    if (isFes) {
         topAd.classList.add("g")
-    }else{
+    } else {
         topAd.classList.remove("g")
     }
 }
 
 function toggleTheme() {
-    let isFes = localStorage.getItem("fesTheme") === "true"; 
-    localStorage.setItem("fesTheme", !isFes); 
-    loadTheme(); 
+    let isFes = localStorage.getItem("fesTheme") === "true";
+    localStorage.setItem("fesTheme", !isFes);
+    loadTheme();
 }
 
-topAd.querySelector("button").onclick = (e)=>{
+topAd.querySelector("button").onclick = (e) => {
     topAd.classList.add("g")
 }
 
@@ -92,7 +93,7 @@ for (let i = 0; i < r4ds.length; i++) {
 
 document.querySelector(".co_b_reg_send").onclick = function (e) {
     let send = this;
-    this.disabled = "disabled"
+    this.disabled = true
     let secs = 3000
     let iid = 0
     var tick = () => {
@@ -122,14 +123,15 @@ document.querySelector(".co_b_reg_send").onclick = function (e) {
         });
 }
 
-let passes = document.querySelectorAll("#input-reg-pass, #input-reg-psag, input-login-pass")
-let pass_over = function () {
+const passes = document.querySelectorAll("#input-reg-pass, #input-reg-psag, input-login-pass")
+const pass_over = function () {
     this.type = "text"
 }
 
-let pass_out = function () {
+const pass_out = function () {
     this.type = "password"
 }
+
 passes.forEach(each => {
     each.onmouseover = pass_over
     each.onmouseout = pass_out
@@ -226,35 +228,78 @@ document.querySelector(".co_b_reg_login").onclick = function (e) {
     let veri = bthis.parentNode.querySelector("#input-login-veri").value
 
 
-    let formData = new FormData();
-    formData.append("email", email);
-    formData.append("pass", pass);
-    formData.append("veri", veri);
-    fetch("/login", {
-        method: "POST",
-        body: formData
-    })
-        .then(response => response.json())
-        .then(data => {
-            deal_login_hint(data)
-            bthis.innerHTML = "Login"
-            if (data.status == "200") {
-                location.reload()
-            }
-        })
-        .catch(error => {
-            deal_login_hint({ "status": "usr", "desc": "System Error." })
-            bthis.innerHTML = "Login"
-            console.error("Error:", error)
-        });
+    // let formData = new FormData();
+    // formData.append("email", email);
+    // formData.append("pass", pass);
+    // formData.append("veri", veri);
+    // fetch("/login", {
+    //     method: "POST",
+    //     body: formData
+    // })
+    //     .then(response => response.json())
+    //     .then(data => {
+    //         deal_login_hint(data)
+    //         bthis.innerHTML = "Login"
+    //         if (data.status == "200") {
+    //             location.reload()
+    //         }
+    //     })
+    //     .catch(error => {
+    //         deal_login_hint({ "status": "usr", "desc": "System Error." })
+    //         bthis.innerHTML = "Login"
+    //         console.error("Error:", error)
+    //     });
+
+    axios.post('/login', {
+        "email": email,
+        "pass": pass,
+        "veri": veri
+    }, {
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        }
+    }).then(data => {
+        deal_login_hint(data)
+        bthis.innerHTML = "Login"
+        if (data.status == "200") {
+            location.reload()
+        }
+    }).catch(error => {
+        deal_login_hint({ "status": "usr", "desc": "System Error." })
+        bthis.innerHTML = "Login"
+        console.error("Error:", error)
+    });
 }
 
 function refreshAvatar(compressedBase64) {
     document.querySelector("#co_d_navr_t img").src = compressedBase64;
 }
 
+const search_input = document.querySelector(".co_div_hometop_r>input")
+const word = urlParams.get("word");
 
-const urlParams = new URLSearchParams(window.location.search);
+function search() {
+    const word = search_input.value
+    if (word)
+        location.href = "search?word=" + word
+}
+
+search_input.addEventListener('keydown', function (e) {
+    if (e.keyCode == 10 || e.keyCode == 13) {
+        search()
+    }
+})
+
+if (word) {
+    search_input.value = word
+}
+
+document.querySelector(".co_div_hometop_r>div").onclick = () => {
+    search()
+}
+
+
+
 const login = urlParams.get('login');
 if (login) {
     loginClick.click()

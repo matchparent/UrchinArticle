@@ -11,9 +11,9 @@
     </style>
     <link rel="icon" type="image/png" href="{{ url_for('static', filename='/pic/portrait1.avif.webp') }}">
 
-    <script type="text/javascript" src="plugins/ueditor-plus/dist/ueditor.config.js"></script>
-    <script type="text/javascript" src="plugins/ueditor-plus/dist/ueditor.all.js"></script>
-    <script type="text/javascript" src="plugins/ueditor-plus/dist/lang/en/en.js"></script>
+    <script type="text/javascript" src="/plugins/ueditor-plus/dist/ueditor.config.js"></script>
+    <script type="text/javascript" src="/plugins/ueditor-plus/dist/ueditor.all.js"></script>
+    <script type="text/javascript" src="/plugins/ueditor-plus/dist/lang/en/en.js"></script>
 
     <link rel="stylesheet" href="/css/base.css">
     <link rel="stylesheet" href="/css/newArt.css">
@@ -31,8 +31,14 @@
                 <i class="iconfont">&#xe607;</i>
                 <span>my drafts</span>
             </div>
-
-            <span>8</span>
+            {% if 0 != (drafts | length) %}
+            <span>{{(drafts | length)}}</span>
+            <script>
+                document.querySelector(".new_header_draft").onclick = (e) => {
+                    showDiv()
+                }
+            </script>
+            {% endif %}
         </div>
 
         <span class="new_header_draft_hint fl">drafts will be automatically saved</span>
@@ -45,10 +51,42 @@
         </div>
     </div>
 
-    <div class="new_div_editor">
-        <input type="text" placeholder="input the title here" value="asdf">
+    <div id="new_d_drafts" class="g">
+        <div id="new_drafts_triangle">
 
-        <script id="editor" type="text/plain" style="height:calc(100% - 190px);"></script>
+        </div>
+
+        <div id="new_drafts_header" class="clearfix">
+            <span>Drafts</span>
+            <span>Saved up to 60 days, deleted after publishment.</span>
+        </div>
+
+        {% for draft in drafts %}
+        <a href="/new/{{draft.aid}}" class="new_a_draft">
+            <i class="fl">&#xe607;</i>
+
+            <div class="fl">
+                <p>{{draft.title}}</p>
+                <span>{{draft.time|timeago}}</span>
+            </div>
+
+            <!-- <i class="fr">&#xe61e;</i> -->
+            <button type="button" class="btn-close fr" onclick='delDraft("{{draft.aid}}")'></button>
+        </a>
+        {% endfor %}
+    </div>
+
+    <script>
+        const draid = "{{drafted.aid if drafted else ''}}"
+        const drtent = '{{(drafted.content if drafted else "")|safe}}'
+    </script>
+    
+    <div class="new_div_editor">
+        <input type="text" placeholder="input the title here" value="{{drafted.title if drafted else ''}}">
+
+        <script id="editor" type="text/plain" style="height:calc(100% - 190px);">
+
+        </script>
     </div>
 
     <div class="modal fade" id="publish" tabindex="-1" aria-hidden="true">
@@ -156,7 +194,7 @@
 
 
                         <div class="fr" id="new_pub_rb">
-                            <button id="new_pub_cancel">Save & Cancel</button>
+                            <button id="new_pub_cancel">Draft & Cancel</button>
                             <button id="new_pub_publish">Publish</button>
                         </div>
 

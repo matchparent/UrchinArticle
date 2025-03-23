@@ -15,8 +15,8 @@
     <link rel="stylesheet" href="/css/common.css">
     <link id="theme-css" rel="stylesheet">
 
-
-
+    <!-- https://axios-http.com/docs/post_example -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="/script/common.js" defer></script>
 </head>
 
@@ -29,7 +29,7 @@
     </div>
 
     <div class="co_div_top_ad">
-        <button type="button" class="btn-close"/>
+        <button type="button" class="btn-close" />
     </div>
 
     <div class="co_div_nav">
@@ -193,7 +193,7 @@
                         </div>
 
                         <div class="mb-3 clearfix">
-                            <img src="https://static.mukewang.com/static/img/article/header1.png"
+                            <img src="/vcode" onclick="this.src='/vcode?'+Math.random()"
                                 style="float: left;height: 40px;width: 80px;">
                             <input type="password" class="form-control" id="input-login-veri" autocomplete="off"
                                 value="1234" placeholder="input verify code"

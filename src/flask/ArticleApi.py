@@ -31,8 +31,10 @@ ErspUser = [
 ]
 
 
-@articleBp.route("/new")
-def new_art():
+@articleBp.route("/new/<aid>")
+@articleBp.route("/new/", defaults={"aid": ""})
+@articleBp.route("/new", defaults={"aid": ""})
+def new_art(aid):
     if 'usr' not in session:
         return redirect(url_for('home.home', login=True))
     else:
@@ -56,8 +58,22 @@ def new_art():
             "select * from db_artag;")
         tags = cursor.fetchall()
 
+        cursor.execute(
+            "select aid,title,content,coalesce(update_time,create_time) as time from db_article where uid=%(uid)s and status=2;",
+            {"uid": session['usr']['uid']})
+        drafts = cursor.fetchall()
+
+        drafted = ""
+        if aid:
+            cursor.execute(
+                "select aid,title,content from db_article where aid=%(aid)s and status=2 and uid=%(uid)s;",
+                {"aid": aid, "uid": session['usr']['uid']})
+            drafted = cursor.fetchone()
+            print(drafted)
+
         DbUtil.culminate(conn)
-        return render_template("newArt.html", artypes=artypes, cats=cats, tags=tags, randfs=randfs)
+        return render_template("newArt.html", artypes=artypes, cats=cats, tags=tags, randfs=randfs, drafts=drafts,
+                               drafted=drafted)
 
 
 @articleBp.route("/content/<aid>")
@@ -194,26 +210,47 @@ def publish():
     # return Tools.gen200rsp("Publish success.")
 
 
+@articleBp.route('/draft', methods=['POST'])
+def draft():
+    return add_article("2")
+
+
 def add_article(status):
     print(f"json = {request.get_json()}")
     title = request.get_json()["title"]
     content = request.get_json()["content"]
-    cover = request.get_json()["cover"]
-    acid = request.get_json()["acid"]
-    ayid = request.get_json()["ayid"]
-    atids = request.get_json()["atids"]
+    if status == "1":
+        aid = ""
+        cover = request.get_json()["cover"]
+        acid = request.get_json()["acid"]
+        ayid = request.get_json()["ayid"]
+        atids = request.get_json()["atids"]
+    else:
+        aid = request.get_json()["aid"]
+        cover = "0"
+        acid = "0"
+        ayid = "0"
+        atids = "0"
 
     def query(conn):
         cursor = conn.cursor()
-        cursor.execute(
-            "insert into db_article(title,content,cover,uid,acid,ayid,atids,status) values(%(title)s,%(content)s,%(cover)s,%(uid)s,%(acid)s,%(ayid)s,%(atids)s,%(status)s);",
-            {"title": title, "content": content, "cover": cover, "uid": session['usr']['uid'], "acid": acid,
-             "ayid": ayid,
-             "atids": atids, "status": status})
+        if aid:
+            cursor.execute(
+                "update db_article set title=%(title)s,content=%(content)s where aid=%(aid)s;",
+                {"title": title, "content": content, "aid": aid})
+        else:
+            cursor.execute(
+                "insert into db_article(title,content,cover,uid,acid,ayid,atids,status) values(%(title)s,%(content)s,%(cover)s,%(uid)s,%(acid)s,%(ayid)s,%(atids)s,%(status)s);",
+                {"title": title, "content": content, "cover": cover, "uid": session['usr']['uid'], "acid": acid,
+                 "ayid": ayid,
+                 "atids": atids, "status": status})
         fetch = cursor.fetchall()
         if not fetch:
-            cursor.execute("update db_user set num_art=num_art+1 where uid=%(uid)s", {"uid": session['usr']['uid']})
-            return Tools.gen200rsp("Article publish success.")
+            if status == "1":
+                cursor.execute("update db_user set num_art=num_art+1 where uid=%(uid)s", {"uid": session['usr']['uid']})
+                return Tools.gen200rsp("Article publish success.")
+            else:
+                return Tools.gen200rsp("Draft saved.")
         else:
             return Constants.rsp_se
 
@@ -266,6 +303,25 @@ def submit_comment():
         fetch = cursor.fetchall()
         if not fetch:
             return Tools.gen200rsp("Comment publish success.")
+        else:
+            return Constants.rsp_se
+
+    return DbUtil.execute(query)
+
+
+@articleBp.route("/delDraft", methods=["POST"])
+def del_draft():
+    js = request.get_json()
+    aid = js['aid']
+
+    def query(conn):
+        cursor = conn.cursor()
+        cursor.execute(
+            "update db_article set status=0 where aid=%(aid)s and uid=%(uid)s;",
+            {"aid": aid, "uid": session['usr']['uid']})
+        fetch = cursor.fetchall()
+        if not fetch:
+            return Tools.gen200rsp("Draft deleted.")
         else:
             return Constants.rsp_se
 

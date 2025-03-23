@@ -7,7 +7,7 @@
 
     <div>
         <div>
-            <ul class="h_home_cl">
+            <ul class="h_home_cl" data-opt="{{opti}}">
                 {% for item in artcats %}
                 <li class="h_li_left {% if (item.opt == opti) %}h_li_left_selected{% endif %} ">
                     <a href="/{{item.opt}}" class="h_a_left">{{item.cat_name}}</a>
@@ -51,10 +51,7 @@
                 {% endif %}
 
                 <div class="h_div_list_container">
-
-                    <script>
-                        console.log("author:{{author}}")
-                    </script>
+                    
                     {% if author!=None %}
                     <div id="h_d_art_col_header">
                         <div>
@@ -95,9 +92,23 @@
                     </div>
                     {% endfor %}
 
+                    {% if (articles|length) < 10 %}
+                    <script>
+                        let hasMore = false;
+                    </script>
+                    {% else%}
+                    <script>
+                        let hasMore = true;
+                    </script>
+                    {%endif%}
+                    
 
-                    <div class="h_txt_main_list_bot h_div_list_footer">
-                        nothing more, already the end.
+                    <div id="h_mainlist_loading" class="h_txt_main_list_bot h_div_list_footer g">
+                        Loading ...
+                    </div>
+
+                    <div id="h_mainlist_end" class="h_txt_main_list_bot h_div_list_footer g">
+                        Nothing more, already the end.
                     </div>
 
                 </div>

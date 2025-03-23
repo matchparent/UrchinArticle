@@ -380,3 +380,8 @@
     border: none;
     border-radius: 20px;
 }
+
+.co_div_hometop_r>div{
+    cursor: pointer;
+    user-select: none;
+}
