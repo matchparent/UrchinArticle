@@ -8,6 +8,11 @@ current_env = ENV_TEST
 
 class BaseEnv:
     db_name = 'urchin_article'
+    red_host = "127.0.0.1"
+    red_port = 6379
+    red_pass = ''
+    red_pool = 10
+    red_db = 1
 
 
 class EnvTest(BaseEnv):

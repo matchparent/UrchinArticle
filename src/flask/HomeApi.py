@@ -1,8 +1,14 @@
+import json
+
 from flask import Blueprint, render_template, session, redirect, url_for, request, jsonify
+
+from src.flask.Utils.RedisDb import redis_connect
 
 from Utils import DbUtil
 
 homeBp = Blueprint("home", __name__)
+
+red_client = redis_connect()
 
 
 def get_art_sql(opt, page):
@@ -88,9 +94,13 @@ def home(opt):
     conn = DbUtil.prepare()
 
     cursor = conn.cursor()
-    cursor.execute(
-        "select * from db_artcat order by acid;")
-    artcats = cursor.fetchall()
+    if red_client.exists("artcats"):
+        artcats = json.loads(red_client.get("artcats"))
+    else:
+        cursor.execute(
+            "select * from db_artcat order by acid;")
+        artcats = cursor.fetchall()
+        red_client.set("artcats", json.dumps(artcats))
 
     if opt == "focus" and 'usr' not in session:
         return redirect(url_for('home.home'))
@@ -104,11 +114,16 @@ def home(opt):
     author = None
 
     if opt == 'reco':
-        twin_sql = """
-            select u.nickname, u.intro,sq.opt from db_user u join(select c.uid,c.opt from db_artcat c where c.uid is not NULL limit 2) as sq on u.uid=sq.uid;
-            """
-        cursor.execute(twin_sql)
-        reco_twins = cursor.fetchall()
+        if red_client.exists("reco_twins_l"):
+            reco_twins = [red_client.hgetall("reco_twins_l"), red_client.hgetall("reco_twins_r")]
+        else:
+            twin_sql = """
+                select u.nickname, u.intro,sq.opt from db_user u join(select c.uid,c.opt from db_artcat c where c.uid is not NULL limit 2) as sq on u.uid=sq.uid;
+                """
+            cursor.execute(twin_sql)
+            reco_twins = cursor.fetchall()
+            red_client.hset("reco_twins_l", mapping=reco_twins[0])
+            red_client.hset("reco_twins_r", mapping=reco_twins[1])
 
     if opt.startswith("col"):
         cursor.execute(
