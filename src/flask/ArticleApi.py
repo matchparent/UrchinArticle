@@ -5,7 +5,7 @@ import datetime
 
 from flask import Blueprint, render_template, redirect, session, url_for, request, jsonify
 
-from src.flask.Utils import Tools, Constants, DbUtil
+from Utils import Tools, Constants, DbUtil
 
 articleBp = Blueprint("art", __name__)
 

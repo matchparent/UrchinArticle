@@ -8,9 +8,16 @@ from ArticleApi import articleBp
 from UserApi import usrBp
 from Filters import filBp
 from Utils.Env import config
-from src.flask.Utils.Logger import init_log
+from Utils.Logger import init_log
 
-app = Flask(__name__, template_folder="../template", static_url_path="/", static_folder="../resource")
+
+def getApp():
+    init_log()
+    ap = Flask(__name__, template_folder="../template", static_url_path="/", static_folder="../resource")
+    return ap
+
+
+app = getApp()
 app.register_blueprint(homeBp)
 app.register_blueprint(articleBp)
 app.register_blueprint(usrBp)
@@ -36,6 +43,5 @@ def route_404():
 
 
 if __name__ == '__main__':
-    init_log()
     app.run(**config.flask_app)
     # app.run(host="0.0.0.0", debug=True, port=3321)

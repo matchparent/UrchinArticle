@@ -3,11 +3,11 @@ import logging
 ENV_TEST = "test"
 ENV_PROD = "prod"
 
-current_env = ENV_TEST
+current_env = ENV_PROD
 
 
 class BaseEnv:
-    db_name = 'urchin_article'
+
     red_host = "127.0.0.1"
     red_port = 6379
     red_pass = ''
@@ -16,6 +16,7 @@ class BaseEnv:
 
 
 class EnvTest(BaseEnv):
+    db_name = 'urchin_article'
     flask_app = {
         "host": "0.0.0.0",
         "debug": True,
@@ -29,15 +30,16 @@ class EnvTest(BaseEnv):
 
 
 class EnvProd(BaseEnv):
+    db_name = 'railway'
     flask_app = {
         "host": "0.0.0.0",
-        "debug": True,
+        "debug": False,
         "port": 3321
     }
-    db_host = '127.0.0.1'
-    db_port = 3302
-    db_user = 'sqljohn'
-    db_password = '123'
+    db_host = 'gondola.proxy.rlwy.net'
+    db_port = 37109
+    db_user = 'root'
+    db_password = 'hEKMpRbVgZXrxSllGxORlauPzJXRawOD'
     log_level = logging.INFO
 
 

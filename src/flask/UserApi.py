@@ -97,18 +97,18 @@ def email_verify():
         return ErspUser[2]
     code = Tools.generate_verification_code()
 
-    # content = render_template("vericode.html", vericode=code, email=email)
-    #
-    # msg = MIMEMultipart()
-    # msg["Subject"] = "User Registration Verification Code"
-    # msg["From"] = "Urchin"
-    # msg["To"] = email
-    # msg.attach(MIMEText(content, "html", "utf-8"))
-    #
-    # s = smtplib.SMTP_SSL("smtp.gmail.com", 465)
-    # s.login(PrivateConfigurations.mail, PrivateConfigurations.pas)
-    # s.sendmail(PrivateConfigurations.mail, email, msg.as_string())
-    # s.quit()
+    content = render_template("vericode.html", vericode=code, email=email)
+
+    msg = MIMEMultipart()
+    msg["Subject"] = "User Registration Verification Code"
+    msg["From"] = "Urchin"
+    msg["To"] = email
+    msg.attach(MIMEText(content, "html", "utf-8"))
+
+    s = smtplib.SMTP_SSL("smtp.gmail.com", 465)
+    s.login(PrivateConfigurations.mail, PrivateConfigurations.pas)
+    s.sendmail(PrivateConfigurations.mail, email, msg.as_string())
+    s.quit()
 
     def sql(conn):
         conn.cursor().execute("insert into db_vericode(email,code) values(%(email)s,%(code)s);",

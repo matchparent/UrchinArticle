@@ -2,7 +2,7 @@ import json
 
 from flask import Blueprint, render_template, session, redirect, url_for, request, jsonify
 
-from src.flask.Utils.RedisDb import redis_connect
+from Utils.RedisDb import redis_connect
 
 from Utils import DbUtil
 

@@ -3,7 +3,7 @@ import logging
 import pymysql
 from . import Constants
 
-from src.flask.Utils.Env import config
+from .Env import config
 
 
 # print(config.db_port)

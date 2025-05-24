@@ -1,4 +1,4 @@
-from src.flask.Utils.Env import config
+from .Env import config
 import redis
 
 
