@@ -1,0 +1,17 @@
+blinker @ file:///private/var/folders/k1/30mswbxs7r1g6zwn8y4fyt500000gp/T/abs_11lor_igbs/croot/blinker_1737449046432/work
+cffi @ file:///private/var/folders/nz/j6p8yfhx1mv_0grj5xl4650h0000gp/T/abs_e4xd9yd9i2/croot/cffi_1736182819442/work
+click @ file:///Users/builder/cbouss/perseverance-python-buildout/croot/click_1728586651337/work
+cryptography @ file:///Users/builder/cbouss/buildout/croot/cryptography_1732917318571/work
+Flask @ file:///private/var/folders/k1/30mswbxs7r1g6zwn8y4fyt500000gp/T/abs_fabivvom5o/croot/flask_1737454311468/work
+Flask-Cors==5.0.0
+itsdangerous @ file:///Users/builder/cbouss/buildout/croot/itsdangerous_1732923588034/work
+Jinja2 @ file:///private/var/folders/nz/j6p8yfhx1mv_0grj5xl4650h0000gp/T/abs_edxxj8_09v/croot/jinja2_1737760124957/work
+MarkupSafe @ file:///private/var/folders/nz/j6p8yfhx1mv_0grj5xl4650h0000gp/T/abs_1f_uj4vxik/croot/markupsafe_1738584045311/work
+pillow @ file:///private/var/folders/k1/30mswbxs7r1g6zwn8y4fyt500000gp/T/abs_85xj2lenf1/croot/pillow_1738010251686/work
+pycparser @ file:///tmp/build/80754af9/pycparser_1636541352034/work
+PyMySQL @ file:///Users/builder/cbouss/perseverance-python-buildout/croot/pymysql_1728615793684/work
+pytz @ file:///Users/builder/cbouss/perseverance-python-buildout/croot/pytz_1728586101417/work
+redis @ file:///Users/ktietz/demo/mc3/conda-bld/redis_1629466498261/work
+setuptools==75.8.0
+Werkzeug @ file:///private/var/folders/k1/30mswbxs7r1g6zwn8y4fyt500000gp/T/abs_87am5fxnsf/croot/werkzeug_1737448721856/work
+wheel==0.44.0
