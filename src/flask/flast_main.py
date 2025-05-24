@@ -42,6 +42,11 @@ def route_404():
     return render_template("404.html")
 
 
+@app.route("/test")
+def test():
+    return "test ok"
+
+
 if __name__ == '__main__':
     app.run(**config.flask_app)
     # app.run(host="0.0.0.0", debug=True, port=3321)
