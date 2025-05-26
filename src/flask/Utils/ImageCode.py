@@ -3,7 +3,7 @@ import string
 from io import BytesIO
 
 from PIL import Image, ImageDraw, ImageFont
-
+import Env
 
 def rand_code():
     # return "".join(random.sample(string.ascii_letters + string.digits, 4))
@@ -17,7 +17,10 @@ def draw_code():
     code = rand_code()
     width, height = 120, 50
     img = Image.new("RGB", (width, height), "white")
-    font = ImageFont.truetype(font="/System/Library/Fonts/Supplemental/Academy Engraved LET Fonts.ttf", size=40)
+    if Env.current_env == Env.ENV_TEST:
+        font = ImageFont.truetype(font="/System/Library/Fonts/Supplemental/Academy Engraved LET Fonts.ttf", size=40)
+    else:
+        font = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", size=40)
     draw = ImageDraw.Draw(img)
     for i in range(4):
         draw.text((11 + 25 * i, 10), text=code[i], fill=rand_color(), font=font)
