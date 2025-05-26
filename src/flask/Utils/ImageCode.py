@@ -6,8 +6,8 @@ from PIL import Image, ImageDraw, ImageFont
 from . import Env
 
 def rand_code():
-    # return "".join(random.sample(string.ascii_letters + string.digits, 4))
-    return "1234"
+    return "".join(random.sample(string.ascii_letters + string.digits, 4))
+    # return "1234"
 
 def rand_color():
     return random.randint(0, 255), random.randint(0, 255), random.randint(0, 255)
