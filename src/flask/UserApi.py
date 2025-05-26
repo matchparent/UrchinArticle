@@ -17,7 +17,7 @@ ErspUser = [
     },
     {
         "status": "usr-1",
-        "desc": "Empty input for E-mail, password or verification code."
+        "desc": "Empty input of E-mail, password or verification code."
     },
     {
         "status": "usr-2",

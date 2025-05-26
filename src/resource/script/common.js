@@ -259,7 +259,7 @@ document.querySelector(".co_b_reg_login").onclick = function (e) {
             'Content-Type': 'application/x-www-form-urlencoded'
         }
     }).then(data => {
-        deal_login_hint(data)
+        deal_login_hint(data.data)
         bthis.innerHTML = "Login"
         if (data.data.status == "200") {
             location.reload()
