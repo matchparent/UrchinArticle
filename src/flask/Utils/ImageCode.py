@@ -3,7 +3,7 @@ import string
 from io import BytesIO
 
 from PIL import Image, ImageDraw, ImageFont
-import Env
+from . import Env
 
 def rand_code():
     # return "".join(random.sample(string.ascii_letters + string.digits, 4))
