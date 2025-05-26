@@ -261,7 +261,7 @@ document.querySelector(".co_b_reg_login").onclick = function (e) {
     }).then(data => {
         deal_login_hint(data)
         bthis.innerHTML = "Login"
-        if (data.status == "200") {
+        if (data.data.status == "200") {
             location.reload()
         }
     }).catch(error => {
