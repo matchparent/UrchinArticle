@@ -51,10 +51,8 @@ document.addEventListener("DOMContentLoaded", function () {
             .then(response => response.json())
             .then(data => {
                 loading.classList.add("g");
-                console.log("data:" + data)
 
                 if (data.articles.length === 0) {
-                    console.log("000000")
                     hasMore = false;
                     no_more.classList.remove("g");
                     return;
@@ -80,11 +78,17 @@ document.addEventListener("DOMContentLoaded", function () {
             let articleDiv = document.createElement("div");
             articleDiv.className = "h_div_list_item";
             articleDiv.href = "/content/{{item.aid}}"
+            let tagHtml = '';
+            if (opt === "reco") {
+                tagHtml = `<a href="/${item.opt}" class="h_a_main_tag">${item.cat_name}</a>`;
+            }
             articleDiv.innerHTML = `
                 <img src="${item.cover.replace('"', '')}">
                 <div>
                     <a class="h_a_main_title">${item.title}</a>
+                    <span class="h_span_star" title="Not implemented">Star</span>
                     <div class="h_div_item_bot">
+                        ${tagHtml}
                         <span class="iconfont h_txt_main_list_bot">&#xe602;</span>
                         <span class="h_txt_main_list_bot">${item.num_view}</span>
                         <a href="" class="h_txt_main_list_bot">${item.nickname}</a>

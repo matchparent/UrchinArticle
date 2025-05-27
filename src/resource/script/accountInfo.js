@@ -85,7 +85,6 @@ function updateAvatar(file){
                         // refresh avatar in nav bar
                         refreshAvatar(compressedBase64)
                     })
-                    .then(data => console.log("success", data.desc))
 
             };
         }

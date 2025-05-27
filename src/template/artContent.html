@@ -45,9 +45,9 @@
                     {% set tag_list = art.tags.split(',') %}
 
                     {% for item in tag_list %}
-                    <a href="" class="ac_article_tags">{{item}}</a>
+                    <a href="#" class="ac_article_tags" title="Not implemented">{{item}}</a>
                     {% endfor %}
-                    <a href="" class="ac_article_favorite fr">Favorite</a>
+                    <a href="#" class="ac_article_favorite fr" title="Not implemented">Favorite</a>
                 </div>
 
                 <div class="ac_art_html">
@@ -66,17 +66,17 @@
                 <div class="ac_d_support">
                     <div>
                         {% for item in tag_list %}
-                        <a href="" class="ac_artag2">{{item}}</a>
+                        <a href="#" class="ac_artag2" title="Not implemented">{{item}}</a>
                         {% endfor %}
                     </div>
 
                     <span>Present and follow, pleaase</span>
 
-                    <p>Appreciate and Reward</p>
+                    <p title="Not implemented">Appreciate and Reward</p>
                 </div>
 
                 <div class="ac_d_artom">
-                    <a href="" class="ac_a_gather fr">Gather and Watch</a>
+                    <a href="#" class="ac_a_gather fr" title="Not implemented">Gather and Watch</a>
 
                     <p>
                         {{author.nickname}}
@@ -87,7 +87,7 @@
                 </div>
             </div>
 
-            <div class="ac_div_path">7 remarks</div>
+            <div class="ac_div_path">{{comments | length}} remarks</div>
 
             <div class="ac_div_remarks ac_div_block">
                 <div class="ac_d_rewr">
@@ -104,7 +104,7 @@
                 {% for item in comments %}
 
                 <div class="ac_d_ritms">
-                    <a href="">
+                    <a href="#" title="Not implemented">
                         <img src="{{ url_for('usr.get_avatar', tuid=item.uid) }}">
                         <p>Rsp #{{loop.index}}</p>
                     </a>
@@ -117,15 +117,12 @@
                         <div class="ac_d_ritm_b">
                             <p><i>&#xe83c;</i>123</p>
                             <span data-rbid="{{item.rid}}" data-rtuid="{{item.uid}}" data-rtuname="{{item.nickname}}">Reply</span>
-                            <span>Report</span>
+                            <span title="Not implemented">Report</span>
                             <span>{{item.date}}</span>
                         </div>
 
 
                         {% if item.replies %}
-                        <script>
-                            console.log("{{item.replies}}")
-                        </script>
                         {% for rir in item.replies %}
 
                         <div class="ac_d_rir">
@@ -138,7 +135,7 @@
 
                                 <div class="ac_d_ritm_b">
                                     <span data-rbid="{{item.rid}}" data-rtuid="{{rir.uid}}" data-rtuname="{{rir.nickname}}">Reply</span>
-                                    <span>Report</span>
+                                    <span title="Not implemented">Report</span>
                                     <span>{{rir.date}}</span>
                                 </div>
                             </div>
@@ -177,10 +174,10 @@
                 <div class="h_div_list_item" href="/content/{{item.aid}}">
                     <img src={{ item.cover | replace('"','') }}>
 
-                    <div>
+                    <div {% if not loop.last %} class="botline_more"{% endif %}>
                         <a href="/content/{{item.aid}}" class="h_a_main_title">{{item.title}}</a>
 
-                        <span class="h_span_star">Star</span>
+                        <span class="h_span_star" title="Not implemented">Star</span>
 
                         <div class="h_div_item_bot">
                             <span class="iconfont h_txt_main_list_bot">&#xe602;</span>
@@ -218,7 +215,7 @@
                         </tr>
 
                         <tr>
-                            <td><a href="">{{author.num_art}}</a></td>
+                            <td>{{author.num_art}}</td>
                             <td>{{author.num_focus}}</td>
                             <td>{{author.num_laf}}</td>
                         </tr>
@@ -230,7 +227,7 @@
                 </div>
             </div>
 
-            <div class="ac_d_free ac_div_block">
+            <div class="ac_d_free ac_div_block" title="Not implemented">
                 <p>More Free Courses</p>
                 <a href="" class="ac_free_items">
                     <img src="/pic/art-img1.jpg">

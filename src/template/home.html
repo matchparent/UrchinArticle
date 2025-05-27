@@ -70,19 +70,19 @@
                         <div>
                             <a class="h_a_main_title">{{item.title}}</a>
 
-                            <span class="h_span_star">Star</span>
+                            <span class="h_span_star" title="Not implemented">Star</span>
 
                             <div class="h_div_item_bot">
                                 {% if opti == "reco" %}
-                                <a href="" class="h_a_main_tag">{{item.cat_name}}</a>
+                                <a href="/{{item.opt}}" class="h_a_main_tag">{{item.cat_name}}</a>
                                 {% endif %}
 
                                 <span class="iconfont h_txt_main_list_bot">&#xe602;</span>
                                 <span class="h_txt_main_list_bot">{{item.num_view}}</span>
 
-                                <a href="" class="h_txt_main_list_bot">{{item.nickname}}</a>
+                                <a href="#" class="h_txt_main_list_bot">{{item.nickname}}</a>
 
-                                <a href="" class="h_txt_main_list_bot">{{ item.tags | replace(",", "﹒") }}</a>
+                                <a href="#" class="h_txt_main_list_bot">{{ item.tags | replace(",", "﹒") }}</a>
 
                                 <div class="h_txt_main_list_bot fr">
                                     {{item.date}}

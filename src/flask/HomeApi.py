@@ -15,7 +15,7 @@ def get_art_sql(opt, page):
     offset = page * 10
     if opt == "reco":
         art_sql = """
-                SELECT a.aid,a.title,a.cover,a.num_view,c.cat_name,u.nickname,DATE_FORMAT(a.create_time, '%m.%d') AS date,GROUP_CONCAT(t.tag_name ORDER BY t.atid ASC SEPARATOR ',') AS tags
+                SELECT a.aid,a.title,a.cover,a.num_view,c.cat_name,c.opt,u.nickname,DATE_FORMAT(a.create_time, '%m.%d') AS date,GROUP_CONCAT(t.tag_name ORDER BY t.atid ASC SEPARATOR ',') AS tags
                 FROM db_article a
                 JOIN db_artcat c ON a.acid = c.acid
                 JOIN db_user u ON u.uid = a.uid
@@ -25,7 +25,7 @@ def get_art_sql(opt, page):
                 """
     elif opt == "latest":
         art_sql = """
-                SELECT a.aid,a.title,a.cover,a.num_view,c.cat_name,u.nickname,DATE_FORMAT(a.create_time, '%m.%d') AS date,GROUP_CONCAT(t.tag_name ORDER BY t.atid ASC SEPARATOR ',') AS tags
+                SELECT a.aid,a.title,a.cover,a.num_view,u.nickname,DATE_FORMAT(a.create_time, '%m.%d') AS date,GROUP_CONCAT(t.tag_name ORDER BY t.atid ASC SEPARATOR ',') AS tags
                 FROM db_article a
                 JOIN db_artcat c ON a.acid = c.acid
                 JOIN db_user u ON u.uid = a.uid

@@ -114,7 +114,6 @@ function reqFocus() {
 
     fetch(`/focusAuthor?${params.toString()}`)
         .then(response => response.json())
-        .then(data => console.log(data))
         .catch(error => console.error('Error:', error));
 }
 
@@ -123,7 +122,6 @@ function reqLike(sta) {
 
     fetch(`/like?${params.toString()}`)
         .then(response => response.json())
-        .then(data => console.log(data))
         .catch(error => console.error('Error:', error));
 }
 
