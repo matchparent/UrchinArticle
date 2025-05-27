@@ -5,9 +5,13 @@ from io import BytesIO
 from PIL import Image, ImageDraw, ImageFont
 from . import Env
 
+import logging
+
+
 def rand_code():
     return "".join(random.sample(string.ascii_letters + string.digits, 4))
     # return "1234"
+
 
 def rand_color():
     return random.randint(0, 255), random.randint(0, 255), random.randint(0, 255)
@@ -15,6 +19,7 @@ def rand_color():
 
 def draw_code():
     code = rand_code()
+    logging.info("randcode:" + code)
     width, height = 120, 50
     img = Image.new("RGB", (width, height), "white")
     if Env.current_env == Env.ENV_TEST:
@@ -23,7 +28,7 @@ def draw_code():
         font = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", size=40)
     draw = ImageDraw.Draw(img)
     for i in range(4):
-        draw.text((11 + 25 * i, 10), text=code[i], fill=rand_color(), font=font)
+        draw.text((11 + 20 * i, 10), text=code[i], fill=rand_color(), font=font)
     return img, code
 
 
