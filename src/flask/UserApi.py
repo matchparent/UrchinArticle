@@ -1,6 +1,5 @@
 import base64
 import copy
-import logging
 import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
@@ -124,9 +123,6 @@ def login():
     email = request.form['email']
     password = request.form['pass']
     verify_code = request.form['veri']
-
-    logging.info("input code:"+verify_code)
-    logging.info("session code:"+session['vcode'])
 
     if not email or not password or not verify_code:
         return ErspUser[1]
@@ -273,5 +269,5 @@ def vcode():
     rsp = make_response(byte_string)
     rsp.headers["Content-Type"] = "image/jpeg"
     session["vcode"] = code.lower()
-    logging.info("vcode:"+session["vcode"])
+
     return rsp

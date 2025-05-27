@@ -7,7 +7,6 @@ current_env = ENV_PROD
 
 
 class BaseEnv:
-
     red_host = "127.0.0.1"
     red_port = 6379
     red_pass = ''

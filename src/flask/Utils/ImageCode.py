@@ -5,8 +5,6 @@ from io import BytesIO
 from PIL import Image, ImageDraw, ImageFont
 from . import Env
 
-import logging
-
 
 def rand_code():
     return "".join(random.sample(string.ascii_letters + string.digits, 4))
@@ -19,16 +17,15 @@ def rand_color():
 
 def draw_code():
     code = rand_code()
-    logging.info("randcode:" + code)
     width, height = 120, 50
     img = Image.new("RGB", (width, height), "white")
     if Env.current_env == Env.ENV_TEST:
-        font = ImageFont.truetype(font="/System/Library/Fonts/Supplemental/Academy Engraved LET Fonts.ttf", size=40)
+        font = ImageFont.truetype(font="/System/Library/Fonts/Supplemental/Academy Engraved LET Fonts.ttf", size=30)
     else:
-        font = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", size=40)
+        font = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", size=30)
     draw = ImageDraw.Draw(img)
     for i in range(4):
-        draw.text((11 + 20 * i, 10), text=code[i], fill=rand_color(), font=font)
+        draw.text((11 + 25 * i, 10), text=code[i], fill=rand_color(), font=font)
     return img, code
 
 
