@@ -204,7 +204,7 @@
                 <img src="{{ url_for('usr.get_avatar', tuid=art.uid) }}" class="ac_img_author">
 
                 <div class="ac_dr_nat">
-                    <a href="">{{author.nickname}}</a>
+                    <a href="#" title="Not implemented: Personal profile">{{author.nickname}}</a>
                     <span>{{author.job}}<i>&#xe60f;</i><i>&#xe6f0;</i></span>
                 </div>
 
@@ -262,15 +262,15 @@
             <i>&#xe83c;</i>
             <span>{{art.num_like}}</span>
             <i>&#xe82e;</i>
-            <span>3</span>
-            <i>&#xe839;</i>
+            <span>{{comments | length}}</span>
+            <i title="Not implemented">&#xe839;</i>
             <span>{{art.num_fav}}</span>
 
             <b></b>
             <p>Share</p>
-            <i>&#xe632;</i>
-            <i>&#xe88f;</i>
-            <i>&#xe632;</i>
+            <i title="Not implemented">&#xe632;</i>
+            <i title="Not implemented">&#xe88f;</i>
+            <i title="Not implemented">&#xe632;</i>
         </div>
     </div>
 </div>
