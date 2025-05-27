@@ -23,7 +23,8 @@ app.register_blueprint(articleBp)
 app.register_blueprint(usrBp)
 app.register_blueprint(filBp)
 
-app.config['SECRET_KEY'] = os.urandom(24)
+app.config['SECRET_KEY'] = "b'\x96!_\xea\x8e\xaa\xa3n\x94\xc0?\xa5\t\x83^\xeew\xb9X\x08\t#\xdb?'"
+# app.config['SECRET_KEY'] = os.urandom(24)
 
 app.config.update(
     SESSION_COOKIE_HTTPONLY=True,  # 禁止 JavaScript 访问
