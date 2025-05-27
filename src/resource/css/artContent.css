@@ -327,6 +327,8 @@
     width: 100%;
     height: 100px;
     margin-top: 10px;
+    display:flex;
+    flex-direction:column;
 }
 
 .ac_d_wrrp textarea {
@@ -344,7 +346,10 @@
 .ac_d_wrrp textarea::placeholder {
     color: #9199a1;
 }
-
+.ac_d_wrrp .fr{
+    align-self: flex-end;
+    margin-top:10px;
+}
 .ac_d_wrrp .fr div:first-child {
     display: inline-block;
     height: 36px;

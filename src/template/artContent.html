@@ -145,9 +145,11 @@
                         {% endif %}
 
                         <div class="ac_d_wrrp g" data-rbid="{{item.rid}}">
-                            <img src="{{ url_for('usr.get_avatar') }}">
+                            <div>
+                                <img src="{{ url_for('usr.get_avatar') }}">
 
-                            <textarea placeholder=""></textarea>
+                                <textarea placeholder=""></textarea>
+                            </div>
 
                             <div class="fr">
                                 <div>Cancel</div>
