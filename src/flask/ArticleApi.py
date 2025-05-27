@@ -69,7 +69,6 @@ def new_art(aid):
                 "select aid,title,content from db_article where aid=%(aid)s and status=2 and uid=%(uid)s;",
                 {"aid": aid, "uid": session['usr']['uid']})
             drafted = cursor.fetchone()
-            print(drafted)
 
         DbUtil.culminate(conn)
         return render_template("newArt.html", artypes=artypes, cats=cats, tags=tags, randfs=randfs, drafts=drafts,
@@ -216,7 +215,6 @@ def draft():
 
 
 def add_article(status):
-    print(f"json = {request.get_json()}")
     title = request.get_json()["title"]
     content = request.get_json()["content"]
     if status == "1":

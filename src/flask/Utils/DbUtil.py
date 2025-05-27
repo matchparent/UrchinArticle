@@ -6,8 +6,6 @@ from . import Constants
 from .Env import config
 
 
-# print(config.db_port)
-
 def prepare():
     conn = pymysql.connect(
         # host='192.168.2.124',

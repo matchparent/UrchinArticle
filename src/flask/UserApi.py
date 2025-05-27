@@ -123,8 +123,6 @@ def login():
     email = request.form['email']
     password = request.form['pass']
     verify_code = request.form['veri']
-    print("verify_code:" + verify_code)
-    print("sescode:" + session['vcode'])
 
     if not email or not password or not verify_code:
         return ErspUser[1]

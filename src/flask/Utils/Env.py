@@ -3,7 +3,7 @@ import logging
 ENV_TEST = "test"
 ENV_PROD = "prod"
 
-current_env = ENV_PROD
+current_env = ENV_TEST
 
 
 class BaseEnv:
