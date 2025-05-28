@@ -171,3 +171,4 @@ cython_debug/
 .pypirc
 /src/resource/pic/uploads/
 /src/flask/Utils/PrivateConfigurations.py
+/src/flask/Utils/Env.py
