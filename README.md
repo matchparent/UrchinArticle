@@ -6,6 +6,8 @@ Developed based on Flask, database MySQL, with html+css+js.
 
 Database deployed on Railway, flask deployed on Oracle Cloud.
 
+Docker also configured, but never deployed by this.
+
 Main implementations include: 
 * [x] Login
   * [x] UUid

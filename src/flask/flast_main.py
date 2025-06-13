@@ -11,13 +11,13 @@ from Utils.Env import config
 from Utils.Logger import init_log
 
 
-def getApp():
+def getapp():
     init_log()
     ap = Flask(__name__, template_folder="../template", static_url_path="/", static_folder="../resource")
     return ap
 
 
-app = getApp()
+app = getapp()
 app.register_blueprint(homeBp)
 app.register_blueprint(articleBp)
 app.register_blueprint(usrBp)
